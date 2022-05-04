@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using LibraryManager.Models.Core;
 using LibraryManager.Models.Enums;
 
@@ -17,5 +14,21 @@ namespace LibraryManager.Models
         public UserStatus Status { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime? EndPenalizedPeriod { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(int id, string name, string sex, string telephone, string email, UserStatus status, DateTime birthDate, DateTime? endPenalizedPeriod)
+        {
+            Id = id;
+            Name = name;
+            Sex = sex;
+            Telephone = telephone;
+            Email = email;
+            Status = status;
+            BirthDate = birthDate;
+            EndPenalizedPeriod = endPenalizedPeriod;
+        }
     }
 }
