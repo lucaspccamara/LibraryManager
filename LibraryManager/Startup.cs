@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using LibraryManager.Data;
 
 namespace LibraryManager
 {
@@ -24,6 +26,10 @@ namespace LibraryManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<LibraryManagerContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("LibraryManagerContext"), builder =>
+                        builder.MigrationsAssembly("LibraryManager")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

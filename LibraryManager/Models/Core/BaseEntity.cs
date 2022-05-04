@@ -1,4 +1,5 @@
 ﻿using System;
+using LibraryManager.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,14 +24,14 @@ namespace LibraryManager.Models.Core
             }
             set { }
         }
-        public DateTime UpdatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public string UpdatedDateStr
         {
             get
             {
                 if (this.UpdatedDate != null)
                 {
-                    return this.UpdatedDate.ToString("dd/MM/yyyy");
+                    return this.UpdatedDate.Value.ToString("dd/MM/yyyy");
                 }
                 else
                 {
@@ -39,14 +40,14 @@ namespace LibraryManager.Models.Core
             }
             set { }
         }
-        public DateTime DeletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
         public string DeletedDateStr
         {
             get
             {
                 if (this.DeletedDate != null)
                 {
-                    return this.DeletedDate.ToString("dd/MM/yyyy");
+                    return this.DeletedDate.Value.ToString("dd/MM/yyyy");
                 }
                 else
                 {
@@ -55,6 +56,6 @@ namespace LibraryManager.Models.Core
             }
             set { }
         }
-        public int IndAtivo { get; set; }
+        public ActiveStatus IndAtivo { get; set; }
     }
 }
