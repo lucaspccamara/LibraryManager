@@ -58,6 +58,7 @@ namespace LibraryManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.CreatedDate = DateTime.Now;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using LibraryManager.Models.Enums;
 
 namespace LibraryManager.Models.Core
@@ -6,6 +7,8 @@ namespace LibraryManager.Models.Core
     public class BaseEntity
     {
         public DateTime CreatedDate { get; set; }
+
+        [NotMapped]
         public string CreatedDateStr 
         {
             get
@@ -22,6 +25,8 @@ namespace LibraryManager.Models.Core
             set { }
         }
         public DateTime? UpdatedDate { get; set; }
+
+        [NotMapped]
         public string UpdatedDateStr
         {
             get
@@ -38,6 +43,8 @@ namespace LibraryManager.Models.Core
             set { }
         }
         public DateTime? DeletedDate { get; set; }
+
+        [NotMapped]
         public string DeletedDateStr
         {
             get

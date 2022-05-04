@@ -16,6 +16,6 @@ namespace LibraryManager.Models
         public LoanType LoanType { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime ReturnDeadline { get; set; }
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
     }
 }
