@@ -17,6 +17,7 @@ namespace LibraryManager.Data
         public DbSet<User> User { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<BookTheme> BookTheme { get; set; }
+        public DbSet<LoanHistory> LoanHistory { get; set; }
 
     }
 }
