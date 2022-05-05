@@ -17,5 +17,21 @@ namespace LibraryManager.Models
         public DateTime LoanDate { get; set; }
         public DateTime ReturnDeadline { get; set; }
         public DateTime? ReturnDate { get; set; }
+
+        public LoanHistory()
+        {
+        }
+
+        public LoanHistory(int id, User user, Book book, LoanHistoryStatus status, LoanType loanType, DateTime loanDate, DateTime returnDeadline, DateTime? returnDate)
+        {
+            Id = id;
+            User = user;
+            Book = book;
+            Status = status;
+            LoanType = loanType;
+            LoanDate = loanDate;
+            ReturnDeadline = returnDeadline;
+            ReturnDate = returnDate;
+        }
     }
 }

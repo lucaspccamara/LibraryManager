@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using LibraryManager.Models.Enums;
 
@@ -9,6 +10,7 @@ namespace LibraryManager.Models.Core
         public DateTime CreatedDate { get; set; }
 
         [NotMapped]
+        [DisplayName("Criado em")]
         public string CreatedDateStr 
         {
             get
@@ -19,7 +21,7 @@ namespace LibraryManager.Models.Core
                 }
                 else
                 {
-                    return "";
+                    return "-";
                 }
             }
             set { }
@@ -27,6 +29,7 @@ namespace LibraryManager.Models.Core
         public DateTime? UpdatedDate { get; set; }
 
         [NotMapped]
+        [DisplayName("Atualizado em")]
         public string UpdatedDateStr
         {
             get
@@ -37,7 +40,7 @@ namespace LibraryManager.Models.Core
                 }
                 else
                 {
-                    return "";
+                    return "-";
                 }
             }
             set { }
@@ -45,6 +48,7 @@ namespace LibraryManager.Models.Core
         public DateTime? DeletedDate { get; set; }
 
         [NotMapped]
+        [DisplayName("Deletado em")]
         public string DeletedDateStr
         {
             get
@@ -55,11 +59,13 @@ namespace LibraryManager.Models.Core
                 }
                 else
                 {
-                    return "";
+                    return "-";
                 }
             }
             set { }
         }
+
+        [DisplayName("Ativo")]
         public ActiveStatus IndAtivo { get; set; }
     }
 }
