@@ -33,6 +33,7 @@ namespace LibraryManager
                         builder.MigrationsAssembly("LibraryManager")));
 
             services.AddScoped<UserService>();
+            services.AddScoped<BookService>();
             services.AddScoped<BookThemeService>();
         }
 

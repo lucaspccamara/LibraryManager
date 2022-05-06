@@ -7,9 +7,9 @@
 <h1>Temas</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Criar Tema</a>
+    <a class="btn btn-primary" asp-action="Create">Cadastrar Tema</a>
 </p>
-<table class="table table-striped table-bordered table-hover"">
+<table class="table table-striped table-bordered table-hover">
     <thead>
         <tr class="table-primary">
             <th>
@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.IndAtivo)
             </th>
             <th></th>
-        </trclass="table-primary">
+        </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {

@@ -1,27 +1,26 @@
 ﻿using LibraryManager.Data;
 using LibraryManager.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Services
 {
-    public class BookThemeService
+    public class BookService
     {
         private readonly LibraryManagerContext _context;
 
-        public BookThemeService(LibraryManagerContext context)
+        public BookService(LibraryManagerContext context)
         {
             _context = context;
         }
 
-        public List<BookTheme> FindAll()
+        public List<Book> FindAll()
         {
-            return _context.BookTheme.OrderBy(x => x.Theme).ToList();
+            return _context.Book.Include(obj => obj.Theme).ToList();
         }
 
-        public void Insert(BookTheme obj)
+        public void Insert(Book obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
