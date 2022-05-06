@@ -9,6 +9,7 @@ namespace LibraryManager.Models
         public string BookName { get; set; }
         public string Author { get; set; }
         public BookTheme Theme { get; set; }
+        public int BookThemeId { get; set; }
         public BookStatus Status { get; set; }
 
         public Book()

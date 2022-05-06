@@ -1,0 +1,59 @@
+﻿@model IEnumerable<LibraryManager.Models.BookTheme>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Temas</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Criar Tema</a>
+</p>
+<table class="table table-striped table-bordered table-hover"">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Theme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndAtivo)
+            </th>
+            <th></th>
+        </trclass="table-primary">
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Theme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedDateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedDateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndAtivo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

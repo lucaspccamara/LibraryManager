@@ -33,6 +33,7 @@ namespace LibraryManager
                         builder.MigrationsAssembly("LibraryManager")));
 
             services.AddScoped<UserService>();
+            services.AddScoped<BookThemeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
