@@ -24,13 +24,13 @@ namespace LibraryManager.Controllers
             return View(list);
         }
 
-        // GET: BookTheme/Create
+        // GET: BookThemes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: BookTheme/Create
+        // POST: BookThemes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(BookTheme bookTheme)
@@ -39,9 +39,57 @@ namespace LibraryManager.Controllers
 
             _bookThemeService.Insert(bookTheme);
             return RedirectToAction(nameof(Index));
-
         }
 
+        // GET: BookThemes/Edit
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _bookThemeService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        // POST: BookThemes/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, BookTheme bookTheme)
+        {
+            if (id != bookTheme.Id)
+            {
+                return BadRequest();
+            }
+
+            _bookThemeService.Update(bookTheme);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: BookThemes/Details
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _bookThemeService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        // GET: BookThemes/Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -56,6 +104,21 @@ namespace LibraryManager.Controllers
             }
 
             return View(obj);
+        }
+
+        // POST: BookThemes/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var bookTheme = _bookThemeService.FindById(id);
+            if (bookTheme == null)
+            {
+                return NotFound();
+            }
+
+            _bookThemeService.Delete(bookTheme);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

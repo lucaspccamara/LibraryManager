@@ -43,7 +43,7 @@ namespace LibraryManager.Controllers
 
         }
 
-        // GET: Book/Edit
+        // GET: Users/Edit
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -60,7 +60,7 @@ namespace LibraryManager.Controllers
             return View(obj);
         }
 
-        // POST: Book/Edit
+        // POST: Users/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, User user)
@@ -74,7 +74,7 @@ namespace LibraryManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Book/Details
+        // GET: Users/Details
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -91,7 +91,7 @@ namespace LibraryManager.Controllers
             return View(obj);
         }
 
-        // GET: Book/Delete
+        // GET: Users/Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,7 +108,7 @@ namespace LibraryManager.Controllers
             return View(obj);
         }
 
-        // POST: Book/Delete
+        // POST: Users/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)

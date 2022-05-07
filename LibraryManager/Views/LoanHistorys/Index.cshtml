@@ -1,0 +1,96 @@
+﻿@model IEnumerable<LibraryManager.Models.LoanHistory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Empréstimos</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Cadastrar Emprestimo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDeadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedDateStr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndAtivo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDeadline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDateStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedDateStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeletedDateStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndAtivo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

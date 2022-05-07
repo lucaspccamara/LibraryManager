@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryManager.Models.Core;
@@ -10,13 +12,85 @@ namespace LibraryManager.Models
     public class LoanHistory : BaseEntity
     {
         public int Id { get; set; }
+
+        [DisplayName("Usuário")]
         public User User { get; set; } = new User();
+
+        [DisplayName("Usuário")]
+        public int UserId { get; set; }
+
+        [DisplayName("Livro")]
         public Book Book { get; set; } = new Book();
+
+        [DisplayName("Livro")]
+        public int BookId { get; set; }
         public LoanHistoryStatus  Status { get; set; }
+
+        [DisplayName("Tipo")]
         public LoanType LoanType { get; set; }
+
+        [DisplayName("Data de empréstimo")]
         public DateTime LoanDate { get; set; }
+
+        [NotMapped]
+        [DisplayName("Data de empréstimo")]
+        public string LoanDateStr
+        {
+            get
+            {
+                if (this.LoanDate != null)
+                {
+                    return this.LoanDate.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+            set { }
+        }
+
+        [DisplayName("Data limite")]
         public DateTime ReturnDeadline { get; set; }
+
+        [NotMapped]
+        [DisplayName("Data limite")]
+        public string ReturnDeadlineStr
+        {
+            get
+            {
+                if (this.ReturnDeadline != null)
+                {
+                    return this.ReturnDeadline.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+            set { }
+        }
+
+        [DisplayName("Data de devoução")]
         public DateTime? ReturnDate { get; set; }
+
+        [NotMapped]
+        [DisplayName("Data de devoução")]
+        public string ReturnDateStr
+        {
+            get
+            {
+                if (this.ReturnDate != null)
+                {
+                    return this.ReturnDate.Value.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+            set { }
+        }
 
         public LoanHistory()
         {

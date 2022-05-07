@@ -35,6 +35,7 @@ namespace LibraryManager
             services.AddScoped<UserService>();
             services.AddScoped<BookService>();
             services.AddScoped<BookThemeService>();
+            services.AddScoped<LoanHistoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

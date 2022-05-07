@@ -1,6 +1,4 @@
 ﻿using LibraryManager.Models;
-using LibraryManager.Models.Enums;
-using LibraryManager.Models.ViewModels;
 using LibraryManager.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,42 +8,39 @@ using System.Threading.Tasks;
 
 namespace LibraryManager.Controllers
 {
-    public class BooksController : Controller
+    public class LoanHistorysController : Controller
     {
-        private readonly BookService _bookService;
-        private readonly BookThemeService _bookThemeService;
+        private readonly LoanHistoryService _loanHistoryService;
 
-        public BooksController(BookService bookService, BookThemeService bookThemeService)
+        public LoanHistorysController(LoanHistoryService loanHistoryService)
         {
-            _bookService = bookService;
-            _bookThemeService = bookThemeService;
+            _loanHistoryService = loanHistoryService;
         }
 
-        // GET: Books
+        // GET: LoanHistorys
         public IActionResult Index()
         {
-            var list = _bookService.FindAll();
+            var list = _loanHistoryService.FindAll();
             return View(list);
         }
 
-        // GET: Books/Create
+        // GET: LoanHistorys/Create
         public IActionResult Create()
         {
-            var bookThemes = _bookThemeService.FindAll();
-            var vielModel = new BookFormViewModel { BookThemes = bookThemes };
-            return View(vielModel);
+            return View();
         }
 
-        // POST: Books/Create
+        // POST: LoanHistorys/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Book book)
+        public IActionResult Create(LoanHistory loanHistory)
         {
-            _bookService.Insert(book);
+            _loanHistoryService.Insert(loanHistory);
             return RedirectToAction(nameof(Index));
+
         }
 
-        // GET: Books/Edit
+        // GET: LoanHistorys/Edit
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -53,33 +48,30 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            var obj = _bookService.FindById(id.Value);
+            var obj = _loanHistoryService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            List<BookTheme> bookThemes = _bookThemeService.FindAll();
-            BookFormViewModel viewModel = new BookFormViewModel { Book = obj, BookThemes = bookThemes };
-
-            return View(viewModel);
+            return View(obj);
         }
 
-        // POST: Books/Edit
+        // POST: LoanHistorys/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Book book)
+        public IActionResult Edit(int id, LoanHistory loanHistory)
         {
-            if (id != book.Id)
+            if (id != loanHistory.Id)
             {
                 return BadRequest();
             }
 
-            _bookService.Update(book);
+            _loanHistoryService.Update(loanHistory);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Books/Details
+        // GET: LoanHistorys/Details
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -87,7 +79,7 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            var obj = _bookService.FindById(id.Value);
+            var obj = _loanHistoryService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -96,7 +88,7 @@ namespace LibraryManager.Controllers
             return View(obj);
         }
 
-        // GET: Books/Delete
+        // GET: LoanHistorys/Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +96,7 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            var obj = _bookService.FindById(id.Value);
+            var obj = _loanHistoryService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -113,18 +105,18 @@ namespace LibraryManager.Controllers
             return View(obj);
         }
 
-        // POST: Books/Delete
+        // POST: LoanHistorys/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            var book = _bookService.FindById(id);
-            if (book == null)
+            var loanHistory = _loanHistoryService.FindById(id);
+            if (loanHistory == null)
             {
                 return NotFound();
             }
 
-            _bookService.Delete(book);
+            _loanHistoryService.Delete(loanHistory);
             return RedirectToAction(nameof(Index));
         }
     }

@@ -1,6 +1,7 @@
 ﻿using LibraryManager.Data;
 using LibraryManager.Models;
 using LibraryManager.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +9,26 @@ using System.Threading.Tasks;
 
 namespace LibraryManager.Services
 {
-    public class BookThemeService
+    public class LoanHistoryService : Controller
     {
         private readonly LibraryManagerContext _context;
 
-        public BookThemeService(LibraryManagerContext context)
+        public LoanHistoryService(LibraryManagerContext context)
         {
             _context = context;
         }
 
-        public List<BookTheme> FindAll()
+        public List<LoanHistory> FindAll()
         {
-            return _context.BookTheme.OrderBy(x => x.Theme).ToList();
+            return _context.LoanHistory.OrderBy(obj => obj.ReturnDeadline).ToList();
         }
 
-        public BookTheme FindById(int id)
+        public LoanHistory FindById(int id)
         {
-            return _context.BookTheme.FirstOrDefault(obj => obj.Id == id);
+            return _context.LoanHistory.FirstOrDefault(obj => obj.Id == id);
         }
 
-        public void Insert(BookTheme obj)
+        public void Insert(LoanHistory obj)
         {
             obj.CreatedDate = DateTime.Now;
 
@@ -35,19 +36,20 @@ namespace LibraryManager.Services
             _context.SaveChanges();
         }
 
-        public void Update(BookTheme obj)
+        public void Update(LoanHistory obj)
         {
-            var oldBookTheme = _context.BookTheme.FirstOrDefault(obj => obj.Id == obj.Id);
+            var oldLoanHistory = _context.LoanHistory.FirstOrDefault(obj => obj.Id == obj.Id);
 
-            obj.CreatedDate = oldBookTheme.CreatedDate;
+            obj.Status = oldLoanHistory.Status;
+            obj.CreatedDate = oldLoanHistory.CreatedDate;
             obj.UpdatedDate = DateTime.Now;
-            obj.DeletedDate = oldBookTheme.DeletedDate;
+            obj.DeletedDate = oldLoanHistory.DeletedDate;
 
             _context.Update(obj);
             _context.SaveChanges();
         }
 
-        public void Delete(BookTheme obj)
+        public void Delete(LoanHistory obj)
         {
             obj.IndAtivo = ActiveStatus.Não;
             obj.DeletedDate = DateTime.Now;

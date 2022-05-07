@@ -1,0 +1,49 @@
+﻿@model LibraryManager.Models.BookTheme
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Tema</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Theme)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Theme)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDateStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDateStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedDateStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedDateStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeletedDateStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeletedDateStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IndAtivo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IndAtivo)
+        </dd>
+    </dl>
+</div>
+<hr />
+<div>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>
