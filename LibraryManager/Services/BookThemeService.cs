@@ -21,6 +21,11 @@ namespace LibraryManager.Services
             return _context.BookTheme.OrderBy(x => x.Theme).ToList();
         }
 
+        public BookTheme FindById(int id)
+        {
+            return _context.BookTheme.FirstOrDefault(obj => obj.Id == id);
+        }
+
         public void Insert(BookTheme obj)
         {
             _context.Add(obj);

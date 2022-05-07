@@ -2,7 +2,7 @@
 
 namespace LibraryManager.Models.ViewModels
 {
-    public class BookThemeFormViewModel
+    public class BookFormViewModel
     {
         public Book Book { get; set; }
         public ICollection<BookTheme> BookThemes { get; set; }

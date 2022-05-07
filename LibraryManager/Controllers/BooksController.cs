@@ -1,4 +1,5 @@
 ﻿using LibraryManager.Models;
+using LibraryManager.Models.Enums;
 using LibraryManager.Models.ViewModels;
 using LibraryManager.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace LibraryManager.Controllers
         public IActionResult Create()
         {
             var bookThemes = _bookThemeService.FindAll();
-            var vielModel = new BookThemeFormViewModel { BookThemes = bookThemes };
+            var vielModel = new BookFormViewModel { BookThemes = bookThemes };
             return View(vielModel);
         }
 
@@ -40,11 +41,91 @@ namespace LibraryManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
-            book.CreatedDate = DateTime.Now;
-
             _bookService.Insert(book);
             return RedirectToAction(nameof(Index));
+        }
 
+        // GET: Book/Edit
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _bookService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<BookTheme> bookThemes = _bookThemeService.FindAll();
+            BookFormViewModel viewModel = new BookFormViewModel { Book = obj, BookThemes = bookThemes };
+
+            return View(viewModel);
+        }
+
+        // POST: Book/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Book book)
+        {
+            if (id != book.Id)
+            {
+                return BadRequest();
+            }
+
+            _bookService.Update(book);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Book/Details
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _bookService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        // GET: Book/Delete
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _bookService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        // POST: Book/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var book = _bookService.FindById(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _bookService.Delete(book);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

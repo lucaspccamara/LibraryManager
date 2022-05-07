@@ -1,17 +1,17 @@
-﻿@using LibraryManager.Models.Enums
-@model LibraryManager.Models.ViewModels.BookFormViewModel
+﻿@model LibraryManager.Models.ViewModels.BookFormViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Cadastro de Livro</h1>
+<h1>Editar registro</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Book.Id" />
             <div class="form-group">
                 <label asp-for="Book.BookName" class="control-label"></label>
                 <input asp-for="Book.BookName" class="form-control" />
@@ -27,10 +27,6 @@
                 <select asp-for="Book.BookThemeId" class="form-control" asp-items="@(new SelectList(Model.BookThemes, "Id", "Theme"))"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Book.Status" class="control-label"></label>
-                @Html.DropDownList("Status", Html.GetEnumSelectList<BookStatus>(), new { @class = "form-control" })
-            </div>
-            <div class="form-group">
                 <label asp-for="Book.IndAtivo" class="control-label"></label>
                 <select asp-for="Book.IndAtivo" class="form-control">
                     <option value="1" selected>Sim</option>
@@ -39,7 +35,7 @@
             </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Gravar" class="btn btn-success" /> |
+                <input type="submit" value="Salvar" class="btn btn-success" /> |
                 <a class="btn btn-primary" asp-action="Index">Back to List</a>
             </div>
         </form>
