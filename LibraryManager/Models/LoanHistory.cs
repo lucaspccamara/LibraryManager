@@ -13,6 +13,9 @@ namespace LibraryManager.Models
     {
         public int Id { get; set; }
 
+        [DisplayName("Código")]
+        public int IdLoan { get; set; }
+
         [DisplayName("Usuário")]
         public User User { get; set; } = new User();
 
@@ -71,11 +74,11 @@ namespace LibraryManager.Models
             set { }
         }
 
-        [DisplayName("Data de devoução")]
+        [DisplayName("Data de devolução")]
         public DateTime? ReturnDate { get; set; }
 
         [NotMapped]
-        [DisplayName("Data de devoução")]
+        [DisplayName("Data de devolução")]
         public string ReturnDateStr
         {
             get
@@ -96,9 +99,10 @@ namespace LibraryManager.Models
         {
         }
 
-        public LoanHistory(int id, User user, Book book, LoanHistoryStatus status, LoanType loanType, DateTime loanDate, DateTime returnDeadline, DateTime? returnDate)
+        public LoanHistory(int id, int idLoan, User user, Book book, LoanHistoryStatus status, LoanType loanType, DateTime loanDate, DateTime returnDeadline, DateTime? returnDate)
         {
             Id = id;
+            IdLoan = idLoan;
             User = user;
             Book = book;
             Status = status;

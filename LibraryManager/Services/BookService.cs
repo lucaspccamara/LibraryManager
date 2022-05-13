@@ -30,6 +30,7 @@ namespace LibraryManager.Services
         public void Insert(Book obj)
         {
             obj.CreatedDate = DateTime.Now;
+            obj.IndAtivo = ActiveStatus.Sim;
 
             _context.Add(obj);
             _context.SaveChanges();

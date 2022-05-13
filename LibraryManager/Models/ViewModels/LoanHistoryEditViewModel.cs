@@ -2,10 +2,10 @@
 
 namespace LibraryManager.Models.ViewModels
 {
-    public class LoanHistoryFormViewModel
+    public class LoanHistoryEditViewModel
     {
         public LoanHistory LoanHistory { get; set; }
-        public ICollection<User> Users { get; set; }
-        public ICollection<Book> Books { get; set; }
+        public User Users { get; set; }
+        public Book Books { get; set; }
     }
 }

@@ -1,38 +1,61 @@
-﻿@model LibraryManager.Models.Book
+﻿@model LibraryManager.Models.LoanHistory
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes</h1>
+<h1>Detalhes do Empréstimo</h1>
 
 <div>
-    <h4>Livro</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookName)
+            @Html.DisplayNameFor(model => model.IdLoan)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookName)
+            @Html.DisplayFor(model => model.IdLoan)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author)
+            @Html.DisplayFor(model => model.User.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Theme)
+            @Html.DisplayNameFor(model => model.Book)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Theme.Theme)
+            @Html.DisplayFor(model => model.Book.BookName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LoanType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoanType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LoanDateStr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoanDateStr)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnDeadlineStr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReturnDeadlineStr)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnDateStr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReturnDateStr)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedDateStr)
@@ -60,8 +83,8 @@
         </dd>
     </dl>
 </div>
-<hr />
 <div>
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-success" asp-action="RenewLoan" asp-route-id="@Model.Id">Renovar</a> |
+    <a class="btn btn-danger" asp-action="FinishLoan" asp-route-id="@Model.Id">Devolver</a> |
     <a class="btn btn-primary" asp-action="Index">Voltar</a>
 </div>

@@ -7,11 +7,11 @@
 <h1>Empréstimos</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Cadastrar Emprestimo</a>
+    <a class="btn btn-primary" asp-action="Create">Cadastro</a>
 </p>
-<table class="table">
+<table class="table table-striped table-bordered table-hover">
     <thead>
-        <tr>
+        <tr class="table-primary">
             <th>
                 @Html.DisplayNameFor(model => model.User)
             </th>
@@ -65,13 +65,13 @@
                     @Html.DisplayFor(modelItem => item.LoanType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LoanDate)
+                    @Html.DisplayFor(modelItem => item.LoanDateStr)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDeadline)
+                    @Html.DisplayFor(modelItem => item.ReturnDeadlineStr)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                    @Html.DisplayFor(modelItem => item.ReturnDateStr)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedDateStr)
@@ -86,9 +86,9 @@
                     @Html.DisplayFor(modelItem => item.IndAtivo)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
