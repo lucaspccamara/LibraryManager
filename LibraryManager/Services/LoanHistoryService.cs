@@ -29,6 +29,21 @@ namespace LibraryManager.Services
             return _context.LoanHistory.Include(x => x.User).Include(x => x.Book).FirstOrDefault(obj => obj.Id == id);
         }
 
+        public List<LoanHistory> FindLoanHistoryList(int idLoan)
+        {
+            return _context.LoanHistory.Include(x => x.User).Include(x => x.Book).Where(obj => obj.IdLoan == idLoan).OrderByDescending(obj => obj.Id).ToList();
+        }
+
+        public List<LoanHistory> FindBookHistoryList(int idUser)
+        {
+            return _context.LoanHistory.AsEnumerable().Where(obj => obj.UserId == idUser).OrderByDescending(obj => obj.Id).GroupBy(obj => obj.IdLoan).Select(obj => obj.FirstOrDefault()).Take(5).ToList();
+        }
+
+        public List<LoanHistory> FindUserHistoryList(int idBook)
+        {
+            return _context.LoanHistory.AsEnumerable().Where(obj => obj.BookId == idBook).OrderByDescending(obj => obj.Id).GroupBy(obj => obj.IdLoan).Select(obj => obj.FirstOrDefault()).Take(5).ToList();
+        }
+
         public void Insert(LoanHistory obj)
         {
             var user = _context.User.FirstOrDefault(x => x.Id == obj.UserId);
@@ -76,11 +91,11 @@ namespace LibraryManager.Services
 
             user.UpdatedDate = DateTime.Now;
 
-            var book = _context.Book.Include(obj => obj.Theme).FirstOrDefault(x => x.Id == obj.BookId);
+            var book = _context.Book.Include(x => x.Theme).FirstOrDefault(x => x.Id == obj.BookId);
 
             book.UpdatedDate = DateTime.Now;
 
-            var oldLoanHistory = _context.LoanHistory.Include(x => x.User).Include(x => x.Book).FirstOrDefault(obj => obj.Id == obj.Id);
+            var oldLoanHistory = _context.LoanHistory.Include(x => x.User).Include(x => x.Book).FirstOrDefault(x => x.Id == obj.Id);
 
             oldLoanHistory.UpdatedDate = DateTime.Now;
             oldLoanHistory.IndAtivo = ActiveStatus.Não;
@@ -88,17 +103,63 @@ namespace LibraryManager.Services
             _context.Update(oldLoanHistory);
             _context.SaveChanges();
 
-            obj.Id = _context.LoanHistory.Max(obj => obj.Id) + 1;
+            obj.Id = _context.LoanHistory.Max(x => x.Id) + 1;
             obj.IdLoan = oldLoanHistory.IdLoan;
             obj.User = user;
             obj.Book = book;
             obj.Status = LoanHistoryStatus.Renovado;
             obj.LoanType = LoanType.Renovação;
-            obj.ReturnDeadline = oldLoanHistory.ReturnDeadline.AddDays(7);
+            obj.ReturnDeadline = oldLoanHistory.ReturnDeadline.Value.AddDays(7);
             obj.CreatedDate = DateTime.Now;
             obj.UpdatedDate = null;
             obj.DeletedDate = null;
             obj.IndAtivo = ActiveStatus.Sim;
+
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
+
+        public void ReturnLoan(LoanHistory obj)
+        {
+            var user = _context.User.FirstOrDefault(x => x.Id == obj.UserId);
+
+            user.UpdatedDate = DateTime.Now;
+            if (user.Status == UserStatus.Faltoso)
+            {
+                user.Status = UserStatus.Penalizado;
+                user.EndPenalizedPeriod = DateTime.Now.AddDays(2 * (DateTime.Now - obj.ReturnDeadline.Value).TotalDays);
+            }
+            else
+            {
+                user.Status = UserStatus.Livre;
+                user.EndPenalizedPeriod = null;
+            }
+
+            var book = _context.Book.Include(x => x.Theme).FirstOrDefault(x => x.Id == obj.BookId);
+
+            book.UpdatedDate = DateTime.Now;
+            book.Status = BookStatus.Livre;
+
+            var oldLoanHistory = _context.LoanHistory.Include(x => x.User).Include(x => x.Book).FirstOrDefault(x => x.Id == obj.Id);
+
+            oldLoanHistory.UpdatedDate = DateTime.Now;
+            oldLoanHistory.IndAtivo = ActiveStatus.Não;
+
+            _context.Update(oldLoanHistory);
+            _context.SaveChanges();
+
+            obj.Id = _context.LoanHistory.Max(x => x.Id) + 1;
+            obj.IdLoan = oldLoanHistory.IdLoan;
+            obj.User = user;
+            obj.Book = book;
+            obj.Status = LoanHistoryStatus.Devolvido;
+            obj.LoanType = LoanType.Devolução;
+            obj.ReturnDeadline = null;
+            obj.ReturnDate = DateTime.Now;
+            obj.CreatedDate = DateTime.Now;
+            obj.UpdatedDate = null;
+            obj.DeletedDate = null;
+            obj.IndAtivo = ActiveStatus.Não;
 
             _context.Add(obj);
             _context.SaveChanges();

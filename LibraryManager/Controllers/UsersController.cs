@@ -8,16 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using LibraryManager.Data;
 using LibraryManager.Models;
 using LibraryManager.Services;
+using LibraryManager.Models.ViewModels;
 
 namespace LibraryManager.Controllers
 {
     public class UsersController : Controller
     {
         private readonly UserService _userService;
+        private readonly LoanHistoryService _loanHistoryService;
+        private readonly BookService _bookService;
 
-        public UsersController(UserService userService)
+        public UsersController(UserService userService, LoanHistoryService loanHistoryService, BookService bookService)
         {
             _userService = userService;
+            _loanHistoryService = loanHistoryService;
+            _bookService = bookService;
         }
 
         // GET: Users
@@ -88,7 +93,14 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            return View(obj);
+            var loanHistorys = _loanHistoryService.FindBookHistoryList(obj.Id);
+
+            foreach (var loan in loanHistorys) {
+                loan.Book = _bookService.FindById(loan.BookId);
+            }
+
+            var vielModel = new UserListViewModel { User = obj, LoanHistorys = loanHistorys };
+            return View(vielModel);
         }
 
         // GET: Users/Delete

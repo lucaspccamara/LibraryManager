@@ -3,14 +3,16 @@ using System;
 using LibraryManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManager.Migrations
 {
     [DbContext(typeof(LibraryManagerContext))]
-    partial class LibraryManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20220521071310_Update_LoanHistory_BookList")]
+    partial class Update_LoanHistory_BookList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,9 @@ namespace LibraryManager.Migrations
                     b.Property<int>("IndAtivo")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LoanHistoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -50,6 +55,8 @@ namespace LibraryManager.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookThemeId");
+
+                    b.HasIndex("LoanHistoryId");
 
                     b.ToTable("Book");
                 });
@@ -124,8 +131,6 @@ namespace LibraryManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("LoanHistory");
@@ -182,16 +187,14 @@ namespace LibraryManager.Migrations
                         .HasForeignKey("BookThemeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("LibraryManager.Models.LoanHistory", null)
+                        .WithMany("Book")
+                        .HasForeignKey("LoanHistoryId");
                 });
 
             modelBuilder.Entity("LibraryManager.Models.LoanHistory", b =>
                 {
-                    b.HasOne("LibraryManager.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LibraryManager.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")

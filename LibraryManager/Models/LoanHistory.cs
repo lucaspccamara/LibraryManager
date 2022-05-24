@@ -53,18 +53,18 @@ namespace LibraryManager.Models
             set { }
         }
 
-        [DisplayName("Data limite")]
-        public DateTime ReturnDeadline { get; set; }
+        [DisplayName("Data de devolução")]
+        public DateTime? ReturnDeadline { get; set; }
 
         [NotMapped]
-        [DisplayName("Data limite")]
+        [DisplayName("Data de devolução")]
         public string ReturnDeadlineStr
         {
             get
             {
                 if (this.ReturnDeadline != null)
                 {
-                    return this.ReturnDeadline.ToString("dd/MM/yyyy");
+                    return this.ReturnDeadline.Value.ToString("dd/MM/yyyy");
                 }
                 else
                 {
@@ -74,11 +74,11 @@ namespace LibraryManager.Models
             set { }
         }
 
-        [DisplayName("Data de devolução")]
+        [DisplayName("Devolvido em")]
         public DateTime? ReturnDate { get; set; }
 
         [NotMapped]
-        [DisplayName("Data de devolução")]
+        [DisplayName("Devolvido em")]
         public string ReturnDateStr
         {
             get

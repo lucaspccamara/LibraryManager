@@ -1,15 +1,15 @@
 ﻿@model LibraryManager.Models.ViewModels.LoanHistoryEditViewModel
 
 @{
-    ViewData["Title"] = "RenewLoan";
+    ViewData["Title"] = "ReturnLoan";
 }
 
-<h1>Deseja renovar o empréstimo?</h1>
+<h1>Deseja devolver o livro?</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="RenewLoan">
+        <form asp-action="ReturnLoan">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LoanHistory.Id" />
             <input type="hidden" asp-for="Books.Id" />
@@ -25,18 +25,13 @@
                 <span asp-validation-for="Books.BookName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LoanHistory.LoanDateStr" class="control-label"></label>
-                <input asp-for="LoanHistory.LoanDateStr" readonly class="form-control" />
-                <span asp-validation-for="LoanHistory.LoanDateStr" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="LoanHistory.ReturnDeadlineStr" class="control-label"></label>
                 <input asp-for="LoanHistory.ReturnDeadlineStr" readonly class="form-control" />
                 <span asp-validation-for="LoanHistory.ReturnDeadlineStr" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Nova data de devolução</label>
-                @{ var newDate = Model.LoanHistory.ReturnDeadline.Value.AddDays(7).ToString("dd/MM/yyyy"); } 
+                <label asp-for="LoanHistory.ReturnDateStr" class="control-label"></label>
+                @{ var newDate = DateTime.Now.ToString("dd/MM/yyyy"); }
                 <input asp-for="@newDate" readonly class="form-control" />
             </div>
             <div class="form-group">

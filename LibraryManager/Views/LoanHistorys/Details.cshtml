@@ -1,4 +1,4 @@
-﻿@model LibraryManager.Models.LoanHistory
+﻿@model LibraryManager.Models.ViewModels.LoanHistoryListViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -6,85 +6,133 @@
 
 <h1>Detalhes do Empréstimo</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdLoan)
+<hr />
+<div class="d-flex justify-content-start">
+    <dl class="row col-4">
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.IdLoan)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLoan)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.IdLoan)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.User)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Name)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.User.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Book)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.Book)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Book.BookName)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.Book.BookName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.Status)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.Status)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoanType)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.LoanType)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoanType)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.LoanType)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoanDateStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.LoanDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoanDateStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.LoanDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDeadlineStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.ReturnDeadlineStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDeadlineStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.ReturnDeadlineStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDateStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.ReturnDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDateStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.ReturnDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDateStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.CreatedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDateStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.CreatedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdatedDateStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.UpdatedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedDateStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.UpdatedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeletedDateStr)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.DeletedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeletedDateStr)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.DeletedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IndAtivo)
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.LoanHistory.IndAtivo)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IndAtivo)
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.LoanHistory.IndAtivo)
         </dd>
     </dl>
+    <d2 class="container col-8">
+        <h4>Histórico do empréstimo</h4>
+        <hr />
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistory.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistory.CreatedDateStr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistory.LoanType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistory.ReturnDateStr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistory.ReturnDeadlineStr)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LoanHistorys)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDateStr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoanType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnDateStr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnDeadlineStr)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </d2>
 </div>
+<hr />
 <div>
-    <a class="btn btn-success" asp-action="RenewLoan" asp-route-id="@Model.Id">Renovar</a> |
-    <a class="btn btn-danger" asp-action="FinishLoan" asp-route-id="@Model.Id">Devolver</a> |
+    <a class="btn btn-success" asp-action="RenewLoan" asp-route-id="@Model.LoanHistory.Id">Renovar</a> |
+    <a class="btn btn-danger" asp-action="ReturnLoan" asp-route-id="@Model.LoanHistory.Id">Devolver</a> |
     <a class="btn btn-primary" asp-action="Index">Voltar</a>
 </div>

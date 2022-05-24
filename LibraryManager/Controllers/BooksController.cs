@@ -14,11 +14,15 @@ namespace LibraryManager.Controllers
     {
         private readonly BookService _bookService;
         private readonly BookThemeService _bookThemeService;
+        private readonly UserService _userService;
+        private readonly LoanHistoryService _loanHistoryService;
 
-        public BooksController(BookService bookService, BookThemeService bookThemeService)
+        public BooksController(BookService bookService, BookThemeService bookThemeService, UserService userService, LoanHistoryService loanHistoryService)
         {
             _bookService = bookService;
             _bookThemeService = bookThemeService;
+            _userService = userService;
+            _loanHistoryService = loanHistoryService;
         }
 
         // GET: Books
@@ -93,7 +97,15 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            return View(obj);
+            var loanHistorys = _loanHistoryService.FindUserHistoryList(obj.Id);
+
+            foreach (var loan in loanHistorys)
+            {
+                loan.User = _userService.FindById(loan.UserId);
+            }
+
+            var vielModel = new BookListViewModel { Book = obj, LoanHistorys = loanHistorys };
+            return View(vielModel);
         }
 
         // GET: Books/Delete

@@ -1,67 +1,117 @@
-﻿@model LibraryManager.Models.Book
+﻿@model LibraryManager.Models.ViewModels.BookListViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes</h1>
+<h1>Detalhes do Livro</h1>
 
-<div>
-    <h4>Livro</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookName)
+<hr />
+<div class="d-flex justify-content-start">
+    <dl class="row col-4">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.BookName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookName)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.BookName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.Author)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.Author)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Theme)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.Theme)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Theme.Theme)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.Theme.Theme)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.Status)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.Status)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDateStr)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.CreatedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDateStr)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.CreatedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdatedDateStr)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.UpdatedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdatedDateStr)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.UpdatedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeletedDateStr)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.DeletedDateStr)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeletedDateStr)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.DeletedDateStr)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IndAtivo)
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Book.IndAtivo)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IndAtivo)
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Book.IndAtivo)
         </dd>
     </dl>
+    <d2 class="container col-8">
+        <h4>Últimos empréstimos</h4>
+        <hr />
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th class="col-sm-1">
+                        @Html.DisplayNameFor(model => model.LoanHistorys.First().IdLoan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoanHistorys.First().User)
+                    </th>
+                    <th class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LoanHistorys.First().LoanDateStr)
+                    </th>
+                    <th class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LoanHistorys.First().ReturnDateStr)
+                    </th>
+                    <th class="col-sm-1">
+                        @Html.DisplayNameFor(model => model.LoanHistorys.First().Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LoanHistorys)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdLoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoanDateStr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnDateStr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-controller="LoanHistorys" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </d2>
 </div>
 <hr />
 <div>
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Book.Id">Editar</a> |
     <a class="btn btn-primary" asp-action="Index">Voltar</a>
 </div>

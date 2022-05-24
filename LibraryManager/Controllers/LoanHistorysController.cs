@@ -146,6 +146,46 @@ namespace LibraryManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: LoanHistorys/ReturnLoan
+        public IActionResult ReturnLoan(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _loanHistoryService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            var users = _userService.FindById(obj.UserId);
+            var books = _bookService.FindById(obj.BookId);
+            var vielModel = new LoanHistoryEditViewModel { LoanHistory = obj, Users = users, Books = books };
+            return View(vielModel);
+        }
+
+        // POST: LoanHistorys/ReturnLoan
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ReturnLoan(int id, LoanHistory loanHistory)
+        {
+            if (id != loanHistory.Id)
+            {
+                return BadRequest();
+            }
+
+            loanHistory = _loanHistoryService.FindById(id);
+            if (loanHistory == null)
+            {
+                return NotFound();
+            }
+
+            _loanHistoryService.ReturnLoan(loanHistory);
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: LoanHistorys/Details
         public IActionResult Details(int? id)
         {
@@ -160,7 +200,10 @@ namespace LibraryManager.Controllers
                 return NotFound();
             }
 
-            return View(obj);
+            var loanHistorys = _loanHistoryService.FindLoanHistoryList(obj.IdLoan);
+
+            var vielModel = new LoanHistoryListViewModel { LoanHistory = obj, LoanHistorys = loanHistorys };
+            return View(vielModel);
         }
 
         // GET: LoanHistorys/Delete
